@@ -1,7 +1,6 @@
 var listEl=document.getElementById("prior-search");
 var cityEl=document.getElementById("city");
 var tempEl=document.getElementById("temp");
-var symbolEl=document.getElementById("main-image");
 var windEl=document.getElementById("wind");
 var humidEl=document.getElementById("humidity");
 var uvEl=document.getElementById("uv");
@@ -33,7 +32,7 @@ var today=new Date();
                var mmddyy="("+month+"/"+day+"/"+year+")";
 
 var getCity = function(city){
-    var apiUrl="http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid=4dd0a6688f34e28f1c3c6421ee81985c";
+    var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid=4dd0a6688f34e28f1c3c6421ee81985c";
     fetch(apiUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
@@ -52,7 +51,6 @@ var getWeather= function(lat, long){
     fetch(apiUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
-               symbolEl.src="http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
                 tempEl.textContent="Temp: " + data.current.temp +"F";
                 windEl.textContent="Wind: "+data.current.wind_speed+" MPH";
                 humidEl.textContent="Humidity: "+ data.current.humidity+ "%";
@@ -81,7 +79,7 @@ var getWeather= function(lat, long){
                     var date=document.createElement("p");
                     date.textContent=dateConvert(weatherDay.dt);
                     var symbol=document.createElement("img");
-                    symbol.src="http://openweathermap.org/img/wn/"+ weatherDay.weather[0].icon +"@2x.png";
+                    symbol.src="https://openweathermap.org/img/wn/"+ weatherDay.weather[0].icon +"@2x.png";
                     var temp=document.createElement("p");
                     temp.textContent="Temp: "+ weatherDay.temp.day + " F"
                     var wind=document.createElement("p");
