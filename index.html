@@ -14,16 +14,22 @@
         </header>
         <div class="row justify-content-around text-center">
             <div class="col-lg-12">
-            <div class="col-lg-3 bg-light">
+            <div class="col-lg-3">
+                <div>
                 <h1>
                     Search For A City:
                 </h1>
                 <input name="city-input" id="city-input" type="text" autofocus="true" class="form-input"/>
                 <button id="search" type="submit">Search</button>
+                </div>
+                <div id="prior-search" class="col-lg-3">
+                    <div></div>
+                </div>
             </div>
             <div class="col-lg-9 bg-dark">
                 <div>
                     <h1 id="city">Choose a city</h1>
+                    <img id=main-image/>
                     <p id="temp">Temp: </p>
                     <p id="wind">Wind:</p>
                     <p id="humidity">Humidity: </p>

@@ -1,10 +1,24 @@
+var listEl=document.getElementById("prior-search");
 var cityEl=document.getElementById("city");
 var tempEl=document.getElementById("temp");
+var symbolEl=document.getElementById("main-image");
 var windEl=document.getElementById("wind");
 var humidEl=document.getElementById("humidity");
 var uvEl=document.getElementById("uv");
 var cityInputEl=document.getElementById("city-input");
 var submitButton=document.getElementById("search");
+
+if(localStorage.getItem('cityList')){
+    var cityList=JSON.parse(localStorage.getItem('cityList'));
+    for(var i=0; i<cityList.length; i++){
+        var cityButton=document.createElement("button");
+        cityButton.textContent=cityList[i];
+        listEl.appendChild(cityButton);
+    }}
+    else{
+        var cityList=[];
+    }
+
 var dateConvert=function(date){
     today=new Date(date*1000);
                var month=today.getMonth()+1;
@@ -38,7 +52,7 @@ var getWeather= function(lat, long){
     fetch(apiUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
-               //var todayArr=today.split(' ');
+               symbolEl.src="http://openweathermap.org/img/wn/"+ data.current.weather[0].icon +"@2x.png";
                 tempEl.textContent="Temp: " + data.current.temp +"F";
                 windEl.textContent="Wind: "+data.current.wind_speed+" MPH";
                 humidEl.textContent="Humidity: "+ data.current.humidity+ "%";
@@ -47,7 +61,7 @@ var getWeather= function(lat, long){
                 uvEl.classList.remove("bg-warning");
                 uvEl.classList.remove("bg-danger");
                 if(uvEl.textContent<4){
-                    
+
                     uvEl.classList.add("bg-success")
                 }else if(uvEl.textContent<8){
                     uvEl.classList.add("bg-warning")
@@ -87,12 +101,21 @@ var getWeather= function(lat, long){
     })
 }
 
+var updateList= function(city){
+    cityList.push(city);
+    localStorage.setItem('cityList',JSON.stringify(cityList));
+        var cityButton=document.createElement("button");
+        cityButton.textContent=city;
+        listEl.appendChild(cityButton);
+    }
+
 var formSubmitHandler=function(event){
     event.preventDefault();
     var city=cityInputEl.value.trim();
     console.log("this works");
     if(city){
         getCity(city);
+        updateList(city);
     }else{
         alert("Please enter a city")
         
@@ -101,6 +124,11 @@ var formSubmitHandler=function(event){
 };
 
 submitButton.addEventListener("click",formSubmitHandler);
+
+listEl.addEventListener("click",function(event){
+    var cityName=event.target.textContent;
+    getCity(cityName);
+  })
 
 
 
