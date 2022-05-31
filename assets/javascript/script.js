@@ -19,9 +19,9 @@ if(localStorage.getItem('cityList')){
     }
 
 var dateConvert=function(date){
-    today=new Date(date*1000);
-               var month=today.getMonth()+1;
-               var year=today.getFullYear();
+    let day5=new Date(date*1000);
+               var month=day5.getMonth()+1;
+               var year=day5.getFullYear();
                var mmddyy="("+month+"/"+day+"/"+year+")";
                return mmddyy;
 }
@@ -70,7 +70,9 @@ var getWeather= function(lat, long){
                 console.log(data);
 
                 for(var i=1; i<6; i++){
-                    var weatherDay=data.daily[i-1];
+                    let weatherDay=data.daily[i-1];
+                    console.log(weatherDay);
+                    console.log(dateConvert(data.daily[i-1].dt));
                     var dayEl=document.getElementById("plus-"+i);
                         while(dayEl.firstChild){
                             dayEl.removeChild(dayEl.firstChild)
